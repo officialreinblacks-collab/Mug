@@ -759,6 +759,8 @@ img{max-width:100%;display:block}
   cursor:pointer;
   transition:transform 0.35s ease, box-shadow 0.35s ease;
   border:1px solid rgba(255,255,255,0.08);
+  flex:1;
+  min-width:240px;
 }
 .photo-cloning-card:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(0,0,0,0.7),0 0 30px rgba(229,9,20,0.2)}
 
@@ -844,57 +846,6 @@ img{max-width:100%;display:block}
   padding:20px;
   background:var(--card);
 }
-  
-  /* Photo Gallery Modal */
-.gallery-modal-bg{
-  position:fixed;inset:0;z-index:3000;
-  background:rgba(0,0,0,0.95);
-  backdrop-filter:blur(10px);
-  display:none;flex-direction:column;
-  animation:fadeIn 0.4s ease;
-}
-.gallery-modal-bg.open{display:flex}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.gallery-modal-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:20px 4%;
-  border-bottom:1px solid rgba(255,255,255,0.08);
-}
-.gallery-modal-header h2{font-family:var(--font-display);font-size:28px;letter-spacing:0.05em}
-.gallery-close{
-  width:42px;height:42px;
-  background:rgba(255,255,255,0.08);
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;transition:var(--trans);font-size:18px;
-}
-.gallery-close:hover{background:var(--red)}
-.gallery-grid{
-  flex:1;padding:30px 4%;overflow-y:auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-  gap:16px;
-  align-content:start;
-}
-.gallery-item{
-  position:relative;border-radius:var(--radius);overflow:hidden;
-  cursor:pointer;
-  transition:transform 0.3s ease;
-  aspect-ratio:3/4;
-}
-.gallery-item:hover{transform:scale(1.02)}
-.gallery-item img{
-  width:100%;height:100%;object-fit:cover;
-  transition:filter 0.3s;
-}
-.gallery-item:hover img{filter:brightness(0.7)}
-.gi-overlay{
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;transition:opacity 0.3s;
-}
-.gallery-item:hover .gi-overlay{opacity:1}
-.gi-icon{font-size:32px;color:#fff;text-shadow:0 0 20px rgba(229,9,20,0.8)}
 
 /* Photo Cloning Gallery Modal - Phone Layout */
 .photo-gallery-modal-bg{
@@ -906,27 +857,28 @@ img{max-width:100%;display:block}
   animation:fadeIn 0.4s ease;
 }
 .photo-gallery-modal-bg.open{display:flex}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 .photo-gallery-modal{
   position:relative;
   width:100%;
-  max-width:600px;
+  max-width:550px;
   height:80vh;
-  max-height:800px;
+  max-height:850px;
   background:rgba(0,0,0,0.8);
   border:1px solid rgba(255,255,255,0.1);
-  border-radius:16px;
+  border-radius:20px;
   overflow:hidden;
   display:flex;
   flex-direction:column;
-  box-shadow:0 50px 120px rgba(0,0,0,0.9),0 0 80px rgba(229,9,20,0.15);
+  box-shadow:0 50px 150px rgba(0,0,0,0.9),0 0 100px rgba(229,9,20,0.2);
   animation:modalSlideUp 0.4s cubic-bezier(0.4,0,0.2,1);
 }
 @keyframes modalSlideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 
 .photo-gallery-header{
   display:flex;align-items:center;justify-content:space-between;
-  padding:20px;
+  padding:20px 24px;
   border-bottom:1px solid rgba(255,255,255,0.08);
   flex-shrink:0;
 }
@@ -946,10 +898,12 @@ img{max-width:100%;display:block}
   font-size:20px;
   color:#fff;
   flex-shrink:0;
+  box-shadow:0 0 20px rgba(229,9,20,0.4);
 }
 .photo-gallery-close:hover{
   background:var(--red-dark);
   transform:scale(1.1);
+  box-shadow:0 0 30px rgba(229,9,20,0.6);
 }
 
 .photo-gallery-grid{
@@ -957,7 +911,7 @@ img{max-width:100%;display:block}
   padding:20px;
   overflow-y:auto;
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
   gap:12px;
   align-content:start;
 }
@@ -968,7 +922,7 @@ img{max-width:100%;display:block}
   overflow:hidden;
   cursor:pointer;
   aspect-ratio:3/4;
-  border:1px solid rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
   transition:all 0.3s ease;
   background:#111;
 }
@@ -984,69 +938,72 @@ img{max-width:100%;display:block}
   transition:transform 0.3s ease, filter 0.3s ease;
 }
 .photo-gallery-item:hover img{
-  transform:scale(1.05);
-  filter:brightness(0.8);
+  transform:scale(1.08);
+  filter:brightness(0.85);
 }
 
 .pgi-overlay{
   position:absolute;inset:0;
   display:flex;align-items:center;justify-content:center;
-  background:rgba(229,9,20,0.2);
+  background:rgba(229,9,20,0.1);
   opacity:0;
   transition:opacity 0.3s;
+  z-index:2;
 }
 .photo-gallery-item:hover .pgi-overlay{
   opacity:1;
 }
-.pgi-expand-icon{
-  font-size:32px;color:#fff;text-shadow:0 0 20px rgba(229,9,20,0.8)}
+.pgi-icon{
+  font-size:32px;
+  color:#fff;
+  text-shadow:0 0 15px rgba(229,9,20,0.8);
+}
 
-/* Expanded Photo View */
-.expanded-photo-bg{
+/* Fullscreen Photo Viewer */
+.fullscreen-photo-modal-bg{
   position:fixed;inset:0;z-index:4000;
   background:rgba(0,0,0,0.98);
-  backdrop-filter:blur(12px);
   display:none;align-items:center;justify-content:center;
   padding:20px;
   animation:fadeIn 0.3s ease;
 }
-.expanded-photo-bg.open{display:flex}
+.fullscreen-photo-modal-bg.open{display:flex}
 
-.expanded-photo-container{
+.fullscreen-photo-modal{
   position:relative;
   width:100%;
-  max-width:800px;
+  max-width:900px;
   max-height:90vh;
-  display:flex;align-items:center;justify-content:center;
+  display:flex;align-items:center;
+  justify-content:center;
   animation:zoomIn 0.3s ease;
 }
-@keyframes zoomIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
+@keyframes zoomIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
 
-.expanded-photo-container img{
+.fullscreen-photo-modal img{
   max-width:100%;
   max-height:100%;
   object-fit:contain;
   border-radius:8px;
-  box-shadow:0 40px 100px rgba(0,0,0,0.9);
+  box-shadow:0 50px 150px rgba(0,0,0,0.8);
 }
 
-.expanded-photo-close{
+.fullscreen-photo-close{
   position:absolute;top:20px;right:20px;
-  width:48px;height:48px;
+  width:44px;height:44px;
   background:var(--red);
   border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  cursor:pointer;
-  font-size:24px;
+  cursor:pointer;transition:var(--trans);
+  font-size:22px;
   color:#fff;
-  transition:var(--trans);
-  box-shadow:0 0 30px rgba(229,9,20,0.4);
+  box-shadow:0 0 25px rgba(229,9,20,0.5);
   z-index:10;
 }
-.expanded-photo-close:hover{
+.fullscreen-photo-close:hover{
   background:var(--red-dark);
-  transform:scale(1.1);
-  box-shadow:0 8px 40px rgba(229,9,20,0.6);
+  transform:scale(1.12);
+  box-shadow:0 0 40px rgba(229,9,20,0.8);
 }
 
 /* ============================================================
@@ -1226,142 +1183,331 @@ footer{
   color:var(--red);text-shadow:0 0 15px var(--red-glow);line-height:1;
 }
 .fb-logo .fl-c{font-family:var(--font-display);font-size:36px;line-height:1}
-[Rest of HTML continues...]
+.footer-brand .fb-desc{
+  font-size:13px;color:var(--lgray);line-height:1.8;max-width:280px;
+}
+.footer-col h4{
+  font-family:var(--font-alt);font-size:13px;font-weight:700;
+  letter-spacing:0.08em;color:#fff;margin-bottom:12px;text-transform:uppercase;
+}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:8px}
+.footer-col a{
+  font-size:12px;color:var(--lgray);transition:color 0.2s;
+}
+.footer-col a:hover{color:var(--red)}
+
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.08);
+  padding-top:24px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+  font-size:12px;color:var(--lgray);
+}
+.social-links{display:flex;gap:12px}
+.social-links a{
+  width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,0.06);border-radius:50%;transition:var(--trans);
+  font-size:14px;
+}
+.social-links a:hover{background:var(--red);color:#fff}
+
+@media(max-width:768px){
+  .footer-top{grid-template-columns:1fr 1fr;gap:20px}
+  .footer-bottom{flex-direction:column;align-items:flex-start}
+}
 </style>
 </head>
 <body>
 
-<!-- PHOTO GALLERY MODAL (Grid View - Phone Layout) -->
-<div id="photoGalleryModal" class="photo-gallery-modal-bg">
-  <div class="photo-gallery-modal">
-    <div class="photo-gallery-header">
-      <h3>Photo Clones</h3>
-      <button class="photo-gallery-close" onclick="closePhotoGallery()">
-        <i class="fas fa-times"></i>
+<!-- Intro Screen -->
+<div id="intro">
+  <div class="intro-logo">
+    <div class="r">R</div>
+    <div class="c">C</div>
+  </div>
+  <div class="intro-tagline">Premium Creative Studio</div>
+  <div class="intro-bar-wrap">
+    <div class="intro-bar"></div>
+  </div>
+</div>
+
+<!-- Navbar -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">
+      <div class="logo-r">R</div>
+      <div class="logo-c">C</div>
+    </div>
+    <div class="nav-logo-text">
+      <div class="brand">Reinblacks</div>
+      <div class="home-lbl">Creativz</div>
+    </div>
+  </div>
+
+  <div class="nav-center">
+    <div class="search-wrap">
+      <button class="search-btn" id="searchBtn">
+        <i class="fas fa-search"></i>
       </button>
-    </div>
-    <div id="photoGalleryGrid" class="photo-gallery-grid">
-      <!-- Photos will be populated here -->
+      <div class="search-input-wrap" id="searchWrap">
+        <input type="text" placeholder="Search..." id="searchInput">
+        <span class="s-close" id="closeSearch">✕</span>
+      </div>
+      <div class="search-dropdown" id="searchDropdown"></div>
     </div>
   </div>
-</div>
 
-<!-- EXPANDED PHOTO VIEW -->
-<div id="expandedPhotoView" class="expanded-photo-bg">
-  <div class="expanded-photo-container">
-    <img id="expandedPhoto" src="" alt="Expanded photo">
-    <button class="expanded-photo-close" onclick="closeExpandedPhoto()">
-      <i class="fas fa-times"></i>
+  <div class="nav-right">
+    <button class="nav-icon-btn bell">
+      <i class="fas fa-bell"></i>
+      <div class="notif-dot"></div>
     </button>
+    <button class="profile-btn" id="profileBtn">R</button>
+  </div>
+</nav>
+
+<!-- Profile Modal -->
+<div class="profile-modal-bg" id="profileModal">
+  <div class="profile-modal">
+    <span class="pm-close" id="profileClose">✕</span>
+    <h3>Welcome <span>User</span></h3>
+    <div class="pm-avatar">👤</div>
+    <div class="pm-field">
+      <label>Email</label>
+      <input type="email" value="user@example.com">
+    </div>
+    <div class="pm-field">
+      <label>Username</label>
+      <input type="text" value="Username">
+    </div>
+    <button class="pm-btn">Logout</button>
   </div>
 </div>
 
-<!-- PHOTO CLONING CARD SECTION -->
-<div id="photoCloning" class="content-section">
+<!-- Category Bar -->
+<div id="cat-bar">
+  <button class="cat-btn active">All</button>
+  <button class="cat-btn">AI Photos</button>
+  <button class="cat-btn">Design</button>
+  <button class="cat-btn">Music</button>
+  <button class="cat-btn">Trending</button>
+  <button class="cat-btn">Popular</button>
+</div>
+
+<!-- Photo Cloning Card Section -->
+<section class="content-section">
   <div class="section-header">
-    <h2 class="section-title">AI Photo Cloning</h2>
+    <h2 class="section-title">Photo Cloning</h2>
   </div>
   
   <div class="photo-cards-wrap">
-    <!-- Photo Cloning Card -->
-    <div class="photo-cloning-card" onclick="openPhotoGallery(event)">
+    <div class="photo-cloning-card">
       <div class="pcc-thumbnail">
-        <img src="photo1.jpg" alt="AI Photo Cloning thumbnail">
+        <img src="https://images.unsplash.com/photo-1534528741775-53a8c3fbd6d7?w=500&h=625&fit=crop" alt="AI Photo Cloning">
         <div class="pcc-overlay">
-          <button class="pcc-explore-btn">
+          <button class="pcc-explore-btn" id="explorePhotosBtn">
             <i class="fas fa-images"></i>
-            Explore More Photos
+            <span>Explore More Photos</span>
           </button>
         </div>
       </div>
       <div class="pcc-info">
-        <h3 class="pcc-title">Photo Cloning</h3>
-        <p class="pcc-desc">Explore our collection of AI-generated photo clones and variations</p>
+        <h3 class="pcc-title">AI Photo Cloning</h3>
+        <p class="pcc-desc">Experience professional photo cloning with AI technology</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Photo Gallery Modal (Phone Layout) -->
+<div class="photo-gallery-modal-bg" id="photoGalleryModal">
+  <div class="photo-gallery-modal">
+    <div class="photo-gallery-header">
+      <h3>Photo Gallery</h3>
+      <button class="photo-gallery-close" id="closePhotoGallery">✕</button>
+    </div>
+    <div class="photo-gallery-grid" id="photoGalleryGrid">
+      <!-- Photos will be populated by JavaScript -->
     </div>
   </div>
 </div>
 
+<!-- Fullscreen Photo Viewer -->
+<div class="fullscreen-photo-modal-bg" id="fullscreenPhotoModal">
+  <button class="fullscreen-photo-close" id="closeFullscreenPhoto">✕</button>
+  <div class="fullscreen-photo-modal">
+    <img id="fullscreenPhotoImage" src="" alt="Full view">
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="fb-logo">
+        <div class="fl-r">R</div>
+        <div class="fl-c">C</div>
+      </div>
+      <p class="fb-desc">Premium creative agency providing cutting-edge AI solutions and professional design services.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Updates</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">Twitter</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Discord</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Reinblacks Creativz. All rights reserved.</p>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-facebook"></i></a>
+    </div>
+  </div>
+</footer>
+
 <script>
-// Photo Cloning Gallery Data
-const photoCloneCollection = [
-  'photo1.jpg',
-  'photo2.jpg',
-  'photo3.jpg',
-  'photo1.jpg', // Adding more for demonstration
-  'photo2.jpg',
-  'photo3.jpg',
-  'photo1.jpg',
-  'photo2.jpg',
+// Sample photo data - replace with your actual photos
+const galleryPhotos = [
+  { url: 'https://images.unsplash.com/photo-1534528741775-53a8c3fbd6d7?w=400&h=500&fit=crop', alt: 'Photo 1' },
+  { url: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=500&fit=crop', alt: 'Photo 2' },
+  { url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop', alt: 'Photo 3' },
+  { url: 'https://images.unsplash.com/photo-1495526585915-c3400ca199e7?w=400&h=500&fit=crop', alt: 'Photo 4' },
+  { url: 'https://images.unsplash.com/photo-1539571696357-5a69c006b910?w=400&h=500&fit=crop', alt: 'Photo 5' },
+  { url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop', alt: 'Photo 6' },
+  { url: 'https://images.unsplash.com/photo-1506107565694-c113cbbe7d08?w=400&h=500&fit=crop', alt: 'Photo 7' },
+  { url: 'https://images.unsplash.com/photo-1534528741775-53a8c3fbd6d7?w=400&h=500&fit=crop', alt: 'Photo 8' },
 ];
 
-// Open Photo Gallery Modal
-function openPhotoGallery(event) {
-  event.stopPropagation();
+// Explore Photos Button
+document.getElementById('explorePhotosBtn').addEventListener('click', function(e) {
+  e.stopPropagation();
+  openPhotoGallery();
+});
+
+function openPhotoGallery() {
   const modal = document.getElementById('photoGalleryModal');
   const grid = document.getElementById('photoGalleryGrid');
   
-  // Clear previous items
+  // Clear existing items
   grid.innerHTML = '';
   
   // Populate gallery
-  photoCloneCollection.forEach((photoSrc, index) => {
+  galleryPhotos.forEach((photo, index) => {
     const item = document.createElement('div');
     item.className = 'photo-gallery-item';
     item.innerHTML = `
-      <img src="${photoSrc}" alt="Photo ${index + 1}">
+      <img src="${photo.url}" alt="${photo.alt}" loading="lazy">
       <div class="pgi-overlay">
-        <i class="fas fa-expand pgi-expand-icon"></i>
+        <i class="fas fa-expand pgi-icon"></i>
       </div>
     `;
-    item.onclick = (e) => {
-      e.stopPropagation();
-      openExpandedPhoto(photoSrc);
-    };
+    
+    item.addEventListener('click', () => {
+      openFullscreenPhoto(photo.url);
+    });
+    
     grid.appendChild(item);
   });
   
   modal.classList.add('open');
 }
 
-// Close Photo Gallery Modal
+function openFullscreenPhoto(photoUrl) {
+  const fullscreenModal = document.getElementById('fullscreenPhotoModal');
+  const fullscreenImage = document.getElementById('fullscreenPhotoImage');
+  
+  fullscreenImage.src = photoUrl;
+  fullscreenModal.classList.add('open');
+  
+  // Close fullscreen on background click
+  fullscreenModal.addEventListener('click', function(e) {
+    if (e.target === fullscreenModal) {
+      closeFullscreenPhoto();
+    }
+  });
+}
+
+function closeFullscreenPhoto() {
+  document.getElementById('fullscreenPhotoModal').classList.remove('open');
+}
+
 function closePhotoGallery() {
   document.getElementById('photoGalleryModal').classList.remove('open');
-  closeExpandedPhoto();
+  closeFullscreenPhoto();
 }
 
-// Open Expanded Photo View
-function openExpandedPhoto(photoSrc) {
-  const expandedView = document.getElementById('expandedPhotoView');
-  const expandedImg = document.getElementById('expandedPhoto');
-  expandedImg.src = photoSrc;
-  expandedView.classList.add('open');
-}
+// Close buttons
+document.getElementById('closePhotoGallery').addEventListener('click', closePhotoGallery);
+document.getElementById('closeFullscreenPhoto').addEventListener('click', closeFullscreenPhoto);
 
-// Close Expanded Photo View
-function closeExpandedPhoto() {
-  document.getElementById('expandedPhotoView').classList.remove('open');
-}
-
-// Close modals on background click
-document.getElementById('photoGalleryModal')?.addEventListener('click', function(e) {
-  if (e.target === this) closePhotoGallery();
+// Close modals on escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closePhotoGallery();
+  }
 });
 
-document.getElementById('expandedPhotoView')?.addEventListener('click', function(e) {
-  if (e.target === this) closeExpandedPhoto();
+// Close photo gallery when clicking outside
+document.getElementById('photoGalleryModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closePhotoGallery();
+  }
 });
 
-// Prevent body scroll when modal is open
-const observer = new MutationObserver(() => {
-  const isModalOpen = document.getElementById('photoGalleryModal')?.classList.contains('open');
-  document.body.style.overflow = isModalOpen ? 'hidden' : 'auto';
+// Profile Modal
+const profileBtn = document.getElementById('profileBtn');
+const profileModal = document.getElementById('profileModal');
+const profileClose = document.getElementById('profileClose');
+
+profileBtn.addEventListener('click', () => {
+  profileModal.classList.add('open');
 });
 
-observer.observe(document.getElementById('photoGalleryModal') || document.body, {
-  attributes: true,
-  attributeFilter: ['class']
+profileClose.addEventListener('click', () => {
+  profileModal.classList.remove('open');
 });
+
+profileModal.addEventListener('click', (e) => {
+  if (e.target === profileModal) {
+    profileModal.classList.remove('open');
+  }
+});
+
+// Scroll effect on navbar
+window.addEventListener('scroll', () => {
+  const navbar = document.getElementById('navbar');
+  if (window.scrollY > 50) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+
+// Hide intro screen after 3 seconds
+setTimeout(() => {
+  document.getElementById('intro').classList.add('hide');
+}, 3000);
 </script>
 
 </body>
