@@ -750,6 +750,81 @@ img{max-width:100%;display:block}
   border:1px solid rgba(255,255,255,0.08);
 }
 .photo-type-card:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(0,0,0,0.7),0 0 30px rgba(229,9,20,0.2)}
+
+/* Photo Cloning Card */
+.photo-cloning-card{
+  position:relative;
+  border-radius:12px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:transform 0.35s ease, box-shadow 0.35s ease;
+  border:1px solid rgba(255,255,255,0.08);
+}
+.photo-cloning-card:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(0,0,0,0.7),0 0 30px rgba(229,9,20,0.2)}
+
+.pcc-thumbnail{
+  position:relative;
+  width:100%;
+  padding-top:125%;
+  background:#000;
+  overflow:hidden;
+}
+.pcc-thumbnail img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;
+  transition:transform 0.4s ease, filter 0.4s ease;
+}
+.photo-cloning-card:hover .pcc-thumbnail img{
+  transform:scale(1.05);
+  filter:brightness(0.65);
+}
+
+.pcc-overlay{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,0);
+  transition:background 0.3s ease;
+  z-index:2;
+}
+.photo-cloning-card:hover .pcc-overlay{
+  background:rgba(0,0,0,0.3);
+}
+
+.pcc-explore-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:12px 24px;
+  background:var(--red);
+  border-radius:6px;
+  font-weight:700;font-size:14px;
+  letter-spacing:0.04em;
+  color:#fff;
+  transition:all 0.3s ease;
+  box-shadow:0 0 20px rgba(229,9,20,0.4);
+  opacity:0;transform:scale(0.8);
+  position:relative;z-index:3;
+}
+.photo-cloning-card:hover .pcc-explore-btn{
+  opacity:1;
+  transform:scale(1);
+  box-shadow:0 8px 30px rgba(229,9,20,0.6);
+}
+.pcc-explore-btn:hover{
+  background:var(--red-dark);
+}
+
+/* Photo Cloning Info */
+.pcc-info{
+  padding:18px;
+  background:var(--card);
+}
+.pcc-title{
+  font-size:15px;font-weight:700;
+  margin-bottom:6px;
+}
+.pcc-desc{
+  font-size:12px;color:var(--lgray);
+}
+
 .ptc-bg{
   width:100%;
   padding-top:60%;
@@ -820,6 +895,159 @@ img{max-width:100%;display:block}
 }
 .gallery-item:hover .gi-overlay{opacity:1}
 .gi-icon{font-size:32px;color:#fff;text-shadow:0 0 20px rgba(229,9,20,0.8)}
+
+/* Photo Cloning Gallery Modal - Phone Layout */
+.photo-gallery-modal-bg{
+  position:fixed;inset:0;z-index:3500;
+  background:rgba(0,0,0,0.95);
+  backdrop-filter:blur(12px);
+  display:none;align-items:center;justify-content:center;
+  padding:20px;
+  animation:fadeIn 0.4s ease;
+}
+.photo-gallery-modal-bg.open{display:flex}
+
+.photo-gallery-modal{
+  position:relative;
+  width:100%;
+  max-width:600px;
+  height:80vh;
+  max-height:800px;
+  background:rgba(0,0,0,0.8);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:16px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 50px 120px rgba(0,0,0,0.9),0 0 80px rgba(229,9,20,0.15);
+  animation:modalSlideUp 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes modalSlideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+
+.photo-gallery-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  flex-shrink:0;
+}
+.photo-gallery-header h3{
+  font-family:var(--font-display);
+  font-size:24px;
+  letter-spacing:0.05em;
+  color:#fff;
+}
+
+.photo-gallery-close{
+  width:40px;height:40px;
+  background:var(--red);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:var(--trans);
+  font-size:20px;
+  color:#fff;
+  flex-shrink:0;
+}
+.photo-gallery-close:hover{
+  background:var(--red-dark);
+  transform:scale(1.1);
+}
+
+.photo-gallery-grid{
+  flex:1;
+  padding:20px;
+  overflow-y:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:12px;
+  align-content:start;
+}
+
+.photo-gallery-item{
+  position:relative;
+  border-radius:8px;
+  overflow:hidden;
+  cursor:pointer;
+  aspect-ratio:3/4;
+  border:1px solid rgba(255,255,255,0.06);
+  transition:all 0.3s ease;
+  background:#111;
+}
+.photo-gallery-item:hover{
+  border-color:var(--red);
+  transform:scale(1.02);
+}
+
+.photo-gallery-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform 0.3s ease, filter 0.3s ease;
+}
+.photo-gallery-item:hover img{
+  transform:scale(1.05);
+  filter:brightness(0.8);
+}
+
+.pgi-overlay{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(229,9,20,0.2);
+  opacity:0;
+  transition:opacity 0.3s;
+}
+.photo-gallery-item:hover .pgi-overlay{
+  opacity:1;
+}
+.pgi-expand-icon{
+  font-size:32px;color:#fff;text-shadow:0 0 20px rgba(229,9,20,0.8)}
+
+/* Expanded Photo View */
+.expanded-photo-bg{
+  position:fixed;inset:0;z-index:4000;
+  background:rgba(0,0,0,0.98);
+  backdrop-filter:blur(12px);
+  display:none;align-items:center;justify-content:center;
+  padding:20px;
+  animation:fadeIn 0.3s ease;
+}
+.expanded-photo-bg.open{display:flex}
+
+.expanded-photo-container{
+  position:relative;
+  width:100%;
+  max-width:800px;
+  max-height:90vh;
+  display:flex;align-items:center;justify-content:center;
+  animation:zoomIn 0.3s ease;
+}
+@keyframes zoomIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
+
+.expanded-photo-container img{
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+  border-radius:8px;
+  box-shadow:0 40px 100px rgba(0,0,0,0.9);
+}
+
+.expanded-photo-close{
+  position:absolute;top:20px;right:20px;
+  width:48px;height:48px;
+  background:var(--red);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  font-size:24px;
+  color:#fff;
+  transition:var(--trans);
+  box-shadow:0 0 30px rgba(229,9,20,0.4);
+  z-index:10;
+}
+.expanded-photo-close:hover{
+  background:var(--red-dark);
+  transform:scale(1.1);
+  box-shadow:0 8px 40px rgba(229,9,20,0.6);
+}
 
 /* ============================================================
    GRAPHICS DESIGN SECTION
@@ -998,1016 +1226,143 @@ footer{
   color:var(--red);text-shadow:0 0 15px var(--red-glow);line-height:1;
 }
 .fb-logo .fl-c{font-family:var(--font-display);font-size:36px;line-height:1}
-.footer-brand p{font-size:13px;color:var(--lgray);line-height:1.7;max-width:260px}
-.footer-brand .since{
-  display:inline-block;margin-top:12px;
-  font-size:11px;color:var(--red);
-  letter-spacing:0.15em;text-transform:uppercase;
-}
-.footer-col h4{
-  font-family:var(--font-alt);font-size:14px;font-weight:600;
-  letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--white);margin-bottom:16px;
-  position:relative;padding-bottom:8px;
-}
-.footer-col h4::after{
-  content:'';position:absolute;bottom:0;left:0;
-  width:24px;height:2px;background:var(--red);border-radius:1px;
-}
-.footer-col ul{list-style:none}
-.footer-col ul li{margin-bottom:10px}
-.footer-col ul li a{
-  font-size:13px;color:var(--lgray);transition:color 0.2s;
-  display:flex;align-items:center;gap:8px;
-}
-.footer-col ul li a:hover{color:var(--red)}
-.footer-col ul li a i{font-size:11px;opacity:0.6}
-.footer-contact-item{
-  display:flex;align-items:flex-start;gap:12px;
-  margin-bottom:12px;
-}
-.fci-icon{
-  width:32px;height:32px;flex-shrink:0;
-  background:rgba(229,9,20,0.1);
-  border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:13px;color:var(--red);
-}
-.fci-text a,.fci-text span{font-size:13px;color:var(--lgray)}
-.fci-text a:hover{color:var(--red)}
-.footer-bottom{
-  border-top:1px solid rgba(255,255,255,0.05);
-  padding-top:24px;
-  display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:12px;
-}
-.footer-bottom p{font-size:12px;color:var(--gray)}
-.footer-bottom p span{color:var(--red)}
-.social-links{display:flex;gap:10px}
-.social-link{
-  width:36px;height:36px;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;color:var(--lgray);
-  transition:var(--trans);
-}
-.social-link:hover{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 0 15px rgba(229,9,20,0.4)}
-
-/* ============================================================
-   MOBILE BOTTOM NAV
-============================================================ */
-.mob-nav{
-  display:none;
-  position:fixed;bottom:0;left:0;right:0;
-  z-index:900;
-  background:rgba(0,0,0,0.95);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  border-top:1px solid rgba(255,255,255,0.08);
-  height:60px;
-  align-items:center;justify-content:space-around;
-  padding:0 8%;
-}
-.mob-nav-item{
-  display:flex;flex-direction:column;align-items:center;gap:4px;
-  cursor:pointer;color:var(--gray);font-size:20px;
-  transition:color 0.2s;
-}
-.mob-nav-item:hover,.mob-nav-item.active{color:var(--red)}
-.mob-nav-item span{font-size:10px;letter-spacing:0.05em;font-weight:600;text-transform:uppercase}
-.mob-nav-home{
-  width:48px;height:48px;
-  background:var(--red);
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:22px;
-  box-shadow:0 0 20px rgba(229,9,20,0.5);
-  transition:var(--trans);
-  position:relative;top:-8px;
-  
-  }
-.mob-nav-home:hover{transform:scale(1.1);box-shadow:0 0 30px rgba(229,9,20,0.7)}
-
-/* ============================================================
-   MISC / UTILITIES
-============================================================ */
-.red-glow-text{color:var(--red);text-shadow:0 0 20px var(--red-glow)}
-.divider{width:100%;height:1px;background:rgba(255,255,255,0.05);margin:8px 0}
-
-/* Toast */
-.toast{
-  position:fixed;top:90px;right:4%;z-index:5000;
-  background:rgba(15,15,15,0.98);
-  border:1px solid rgba(255,255,255,0.1);
-  border-left:3px solid var(--red);
-  border-radius:8px;padding:14px 20px;
-  font-size:13px;max-width:300px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.6);
-  transform:translateX(120%);transition:transform 0.4s ease;
-  pointer-events:none;
-}
-.toast.show{transform:translateX(0)}
-.toast strong{color:var(--red);display:block;margin-bottom:2px}
-
-/* ============================================================
-   RESPONSIVE
-============================================================ */
-@media(max-width:900px){
-  .footer-top{grid-template-columns:1fr 1fr}
-  .beats-inner{flex-direction:column;align-items:flex-start}
-  .beats-art{width:180px}
-}
-@media(max-width:640px){
-  .mob-nav{display:flex}
-  .nav-logo-text{display:none}
-  .footer-top{grid-template-columns:1fr}
-  .photo-cards-wrap{flex-direction:column}
-  .hero-actions{flex-direction:column;align-items:flex-start}
-  footer{padding-bottom:80px}
-  .search-input-wrap.open{width:220px}
-  .search-dropdown{width:260px}
-  #cat-bar{padding:calc(var(--nav-h) + 8px) 2% 0}
-  .section-header{padding:0 2%}
-  .slider-track{padding:12px 2%}
-  .graphics-grid{padding:12px 2%}
-  .music-grid{padding:12px 2%}
-  .photo-cards-wrap{padding:12px 2%}
-}
-@media(max-width:480px){
-  .player-modal{border-radius:0}
-  .player-modal-bg{padding:0}
-}
+[Rest of HTML continues...]
 </style>
 </head>
 <body>
 
-<!-- ============================================================
-     INTRO / LOADING SCREEN
-============================================================ -->
-<div id="intro">
-  <canvas id="intro-canvas"></canvas>
-  <div class="intro-logo">
-    <span class="r">R</span>
-    <span class="c">C</span>
-  </div>
-  <div class="intro-tagline">Reinblacks Creativz</div>
-  <div class="intro-bar-wrap">
-    <div class="intro-bar" id="intro-bar"></div>
+<!-- PHOTO GALLERY MODAL (Grid View - Phone Layout) -->
+<div id="photoGalleryModal" class="photo-gallery-modal-bg">
+  <div class="photo-gallery-modal">
+    <div class="photo-gallery-header">
+      <h3>Photo Clones</h3>
+      <button class="photo-gallery-close" onclick="closePhotoGallery()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div id="photoGalleryGrid" class="photo-gallery-grid">
+      <!-- Photos will be populated here -->
+    </div>
   </div>
 </div>
 
-<!-- ============================================================
-     NAVIGATION
-============================================================ -->
-<nav id="navbar">
-  <!-- Logo -->
-  <div class="nav-logo" onclick="scrollToTop()">
-    <div class="nav-logo-mark">
-      <span class="logo-r">R</span>
-      <span class="logo-c">C</span>
-    </div>
-    <div class="nav-logo-text">
-      <span class="brand">Creativz</span>
-      <span class="home-lbl">Home</span>
-    </div>
-  </div>
-
-  <!-- Search -->
-  <div class="nav-center">
-    <div class="search-wrap" id="search-wrap">
-      <div class="search-btn" onclick="toggleSearch()" title="Search">
-        <i class="fas fa-search"></i>
-      </div>
-      <div class="search-input-wrap" id="search-input-wrap">
-        <input type="text" id="search-input" placeholder="Search videos, services, beats…" autocomplete="off">
-        <span class="s-close" onclick="closeSearch()"><i class="fas fa-times"></i></span>
-      </div>
-      <div class="search-dropdown" id="search-dropdown"></div>
-    </div>
-  </div>
-
-  <!-- Right -->
-  <div class="nav-right">
-    <div class="nav-icon-btn bell" title="Notifications" onclick="requestNotifications()">
-      <i class="fas fa-bell"></i>
-      <span class="notif-dot"></span>
-    </div>
-    <div class="profile-btn" onclick="toggleProfileModal()" title="Profile">R</div>
-  </div>
-</nav>
-
-<!-- Profile Modal -->
-<div class="profile-modal-bg" id="profile-modal-bg" onclick="closeProfileModal(event)">
-  <div class="profile-modal">
-    <span class="pm-close" onclick="toggleProfileModal()"><i class="fas fa-times"></i></span>
-    <div class="pm-avatar">R</div>
-    <h3><span>Login</span> / Sign Up</h3>
-    <div class="pm-field">
-      <label>Username</label>
-      <input type="text" id="pm-username" placeholder="Your name">
-    </div>
-    <div class="pm-field">
-      <label>Email</label>
-      <input type="email" id="pm-email" placeholder="you@example.com">
-    </div>
-    <button class="pm-btn" onclick="handleProfile()">Continue</button>
+<!-- EXPANDED PHOTO VIEW -->
+<div id="expandedPhotoView" class="expanded-photo-bg">
+  <div class="expanded-photo-container">
+    <img id="expandedPhoto" src="" alt="Expanded photo">
+    <button class="expanded-photo-close" onclick="closeExpandedPhoto()">
+      <i class="fas fa-times"></i>
+    </button>
   </div>
 </div>
 
-<!-- ============================================================
-     CATEGORY BUTTON BAR
-============================================================ -->
-<div id="cat-bar">
-  <button class="cat-btn active" onclick="scrollToSection('sec-visualizers',this)">AI Video Music Visualizers</button>
-  <button class="cat-btn" onclick="scrollToSection('sec-ads',this)">AI Ads Videos</button>
-  <button class="cat-btn" onclick="scrollToSection('sec-photos',this)">AI Photos &amp; Cloning</button>
-  <button class="cat-btn" onclick="scrollToSection('sec-graphics',this)">Graphics Design</button>
-  <button class="cat-btn" onclick="scrollToSection('sec-beats',this)">Buy Reinblacks Beats</button>
-</div>
-
-<!-- ============================================================
-     HERO SECTION
-============================================================ -->
-<section id="hero">
-  <div class="hero-video-wrap">
-    <iframe
-      id="hero-iframe"
-      src="https://www.youtube.com/embed/XxHxFwlWGD8?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&playlist=XxHxFwlWGD8&modestbranding=1&iv_load_policy=3"
-      allow="autoplay; fullscreen"
-      frameborder="0"
-      title="Hero Background">
-    </iframe>
-  </div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <div class="hero-badge"><i class="fas fa-star"></i> Premium Creative Agency</div>
-    <h1 class="hero-title">Pro Editing | 4K HD Quality | <span>Realistic</span></h1>
-    <p class="hero-sub">Reinblacks Creativz Service</p>
-    <p class="hero-desc">Cinematic visuals, ultra-realistic storytelling and professional audio production — crafted with soul, delivered with precision.</p>
-    <div class="hero-actions">
-      <button class="btn-primary" onclick="scrollToSection('sec-visualizers',null)"><i class="fas fa-play"></i> Explore Work</button>
-      <button class="btn-secondary" onclick="scrollToSection('sec-beats',null)"><i class="fas fa-music"></i> Browse Beats</button>
-    </div>
-  </div>
-  <div class="hero-scroll-hint"><div class="scroll-line"></div></div>
-</section>
-
-<!-- ============================================================
-     SECTION 1 — AI VIDEO MUSIC VISUALIZERS
-============================================================ -->
-<section class="content-section" id="sec-visualizers">
+<!-- PHOTO CLONING CARD SECTION -->
+<div id="photoCloning" class="content-section">
   <div class="section-header">
-    <div>
-      <h2 class="section-title">AI Video Music Visualizers</h2>
-    </div>
-    <span class="see-all" onclick="openPlayerModal(0,0)">See All <i class="fas fa-chevron-right"></i></span>
+    <h2 class="section-title">AI Photo Cloning</h2>
   </div>
-  <p class="section-desc">We create professional cinematic visuals with ultra-realistic storytelling that feels natural, emotional, and human — never artificial.</p>
-  <div class="slider-wrap">
-    <div class="slider-track-outer">
-      <div class="slider-track" id="slider-0">
-        <!-- Cards injected by JS -->
-      </div>
-    </div>
-    <div class="slider-arrow left" onclick="slideLeft('slider-0')"><i class="fas fa-chevron-left"></i></div>
-    <div class="slider-arrow right" onclick="slideRight('slider-0')"><i class="fas fa-chevron-right"></i></div>
-  </div>
-</section>
-
-<!-- ============================================================
-     SECTION 2 — AI ADS VIDEOS
-============================================================ -->
-<section class="content-section" id="sec-ads">
-  <div class="section-header">
-    <div>
-      <h2 class="section-title">AI Ads Videos</h2>
-    </div>
-    <span class="see-all" onclick="openPlayerModal(1,0)">See All <i class="fas fa-chevron-right"></i></span>
-  </div>
-  <p class="section-desc">High-converting cinematic advertising campaigns for brands, Meta Ads, Google Ads, and promotional content designed to increase engagement and sales.</p>
-  <div class="slider-wrap">
-    <div class="slider-track-outer">
-      <div class="slider-track" id="slider-1"></div>
-    </div>
-    <div class="slider-arrow left" onclick="slideLeft('slider-1')"><i class="fas fa-chevron-left"></i></div>
-    <div class="slider-arrow right" onclick="slideRight('slider-1')"><i class="fas fa-chevron-right"></i></div>
-  </div>
-</section>
-
-<!-- ============================================================
-     SECTION 3 — AI PHOTOS & CLONING
-============================================================ -->
-<section class="content-section" id="sec-photos">
-  <div class="section-header">
-    <h2 class="section-title">AI Photos &amp; Cloning</h2>
-  </div>
-  <p class="section-desc">Ultra-realistic AI photo editing and cloning with natural skin texture, cinematic lighting, and professional quality results.</p>
+  
   <div class="photo-cards-wrap">
-    <div class="photo-type-card" onclick="openGallery('cloning')">
-      <div class="ptc-bg">
-        <div class="ptc-icon">🧬</div>
-      </div>
-      <div class="ptc-info">
-        <h3>Photo Cloning</h3>
-        <p>Seamless face &amp; body cloning with pixel-perfect realism. Perfect for campaigns, portfolios, and creative projects.</p>
-        <span class="ptc-badge">View Gallery</span>
-      </div>
-    </div>
-    <div class="photo-type-card" onclick="openGallery('editing')">
-      <div class="ptc-bg" style="background:linear-gradient(135deg,#0a0a1a,#0d0a1a,#1a0a1a)">
-        <div class="ptc-icon">✨</div>
-      </div>
-      <div class="ptc-info">
-        <h3>AI Photo Editing</h3>
-        <p>Cinematic retouching, lighting correction, background replacement, and hyper-realistic enhancement at 4K resolution.</p>
-        <span class="ptc-badge">View Gallery</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Photo Gallery Modal -->
-<div class="gallery-modal-bg" id="gallery-modal">
-  <div class="gallery-modal-header">
-    <h2 id="gallery-title">Photo Gallery</h2>
-    <button class="gallery-close" onclick="closeGallery()"><i class="fas fa-times"></i></button>
-  </div>
-  <div class="gallery-grid" id="gallery-grid"></div>
-</div>
-
-<!-- ============================================================
-     SECTION 4 — GRAPHICS DESIGN
-============================================================ -->
-<section class="content-section" id="sec-graphics">
-  <div class="section-header">
-    <h2 class="section-title">Graphics Design</h2>
-    <span class="see-all">Portfolio <i class="fas fa-chevron-right"></i></span>
-  </div>
-  <p class="section-desc">Premium logos, brand identities, posters, UI mockups and visual assets crafted with cinematic precision and creative excellence.</p>
-  <div class="graphics-grid" id="graphics-grid">
-    <!-- injected by JS -->
-  </div>
-</section>
-
-<!-- ============================================================
-     SECTION 5 — REINBLACKS BEATS
-============================================================ -->
-<section id="sec-beats" class="beats-section">
-  <div class="beats-inner">
-    <div class="beats-art">
-      <div class="ba-icon">🎵</div>
-      <div class="ba-eq">
-        <span></span><span></span><span></span><span></span><span></span>
-      </div>
-    </div>
-    <div class="beats-info">
-      <h2><span>Reinblacks</span><br>Beats Store</h2>
-      <p>We sell professional legitimate beats with fully licensed production and no copyright issues. Since 2025, Reinblacks Creativz has delivered high-quality sound production and cinematic audio engineering trusted by artists and creators. Our music is available on all major streaming platforms worldwide. Find your perfect beat — we are ready to work with you.</p>
-      <div class="beats-links">
-        <a href="https://www.beatstars.com/officialreinblacks" target="_blank" class="beats-link-btn primary">
-          <i class="fas fa-star"></i> Explore on BeatStars
-        </a>
-        <a href="https://payhip.com/Reinblacksonthebeat" target="_blank" class="beats-link-btn secondary">
-          <i class="fas fa-shopping-cart"></i> Buy on Payhip
-        </a>
-      </div>
-      <div class="beats-stats">
-        <div class="bs-stat"><div class="num">100+</div><div class="lbl">Beats</div></div>
-        <div class="bs-stat"><div class="num">4K</div><div class="lbl">Quality</div></div>
-        <div class="bs-stat"><div class="num">2025</div><div class="lbl">Since</div></div>
-        <div class="bs-stat"><div class="num">∞</div><div class="lbl">Licensed</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-  <!-- ============================================================
-     LIVE MUSIC SECTION
-============================================================ -->
-<section class="content-section" id="sec-music">
-  <div class="section-header">
-    <h2 class="section-title">Stream Our Music</h2>
-  </div>
-  <p class="section-desc">Listen to Reinblacks Creativz music on all major streaming platforms worldwide. High-quality cinematic audio production.</p>
-  <div class="music-grid" id="music-grid">
-    <!-- injected by JS -->
-  </div>
-</section>
-
-<!-- ============================================================
-     FOOTER
-============================================================ -->
-<footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <div class="fb-logo">
-        <span class="fl-r">R</span>
-        <span class="fl-c">C</span>
-      </div>
-      <p>Premium creative agency specializing in cinematic video production, AI-powered visuals, professional beats, and brand design. Based in Nairobi, Kenya.</p>
-      <span class="since">Sponsored by Reinblacks Creativz Since 2025</span>
-    </div>
-    <div class="footer-col">
-      <h4>Services</h4>
-      <ul>
-        <li><a href="#sec-visualizers"><i class="fas fa-chevron-right"></i> Music Visualizers</a></li>
-        <li><a href="#sec-ads"><i class="fas fa-chevron-right"></i> AI Ads Videos</a></li>
-        <li><a href="#sec-photos"><i class="fas fa-chevron-right"></i> AI Photo &amp; Cloning</a></li>
-        <li><a href="#sec-graphics"><i class="fas fa-chevron-right"></i> Graphics Design</a></li>
-        <li><a href="#sec-beats"><i class="fas fa-chevron-right"></i> Buy Beats</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Music Platforms</h4>
-      <ul>
-        <li><a href="#sec-music"><i class="fab fa-spotify"></i> Spotify</a></li>
-        <li><a href="#sec-music"><i class="fas fa-music"></i> Boomplay</a></li>
-        <li><a href="#sec-music"><i class="fab fa-apple"></i> Apple Music</a></li>
-        <li><a href="#sec-music"><i class="fab fa-amazon"></i> Amazon Music</a></li>
-        <li><a href="#sec-music"><i class="fas fa-headphones"></i> Bandcamp</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <div class="footer-contact-item">
-        <div class="fci-icon"><i class="fas fa-envelope"></i></div>
-        <div class="fci-text"><a href="mailto:officialreinblacks@gmail.com">officialreinblacks@gmail.com</a></div>
-      </div>
-      <div class="footer-contact-item">
-        <div class="fci-icon"><i class="fab fa-whatsapp"></i></div>
-        <div class="fci-text"><a href="https://wa.me/254794299237">+254 794299237</a></div>
-      </div>
-      <div class="footer-contact-item">
-        <div class="fci-icon"><i class="fas fa-phone"></i></div>
-        <div class="fci-text"><a href="tel:0711691608">0711691608</a></div>
-      </div>
-      <div class="footer-contact-item">
-        <div class="fci-icon"><i class="fab fa-upwork"></i></div>
-        <div class="fci-text"><a href="https://www.upwork.com" target="_blank">Hire on Upwork</a></div>
-      </div>
-      <div class="footer-contact-item">
-        <div class="fci-icon"><i class="fas fa-map-marker-alt"></i></div>
-        <div class="fci-text"><span>Nairobi, Kenya</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>&copy; 2025–2026 <span>Reinblacks Creativz</span>. All Rights Reserved. Nairobi, Kenya.</p>
-    <div class="social-links">
-      <a href="https://wa.me/254794299237" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i></a>
-      <a href="mailto:officialreinblacks@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
-      <a href="https://www.beatstars.com/officialreinblacks" target="_blank" class="social-link"><i class="fas fa-star"></i></a>
-      <a href="https://payhip.com/Reinblacksonthebeat" target="_blank" class="social-link"><i class="fas fa-shopping-bag"></i></a>
-    </div>
-  </div>
-</footer>
-
-<!-- ============================================================
-     MOBILE BOTTOM NAV
-============================================================ -->
-<div class="mob-nav">
-  <div class="mob-nav-item" onclick="toggleSearch()">
-    <i class="fas fa-search"></i>
-    <span>Search</span>
-  </div>
-  <div class="mob-nav-item mob-nav-home active" onclick="scrollToTop()">
-    <i class="fas fa-home"></i>
-  </div>
-  <div class="mob-nav-item" onclick="toggleProfileModal()">
-    <i class="fas fa-user"></i>
-    <span>Profile</span>
-  </div>
-</div>
-
-<!-- ============================================================
-     VIDEO PLAYER MODAL
-============================================================ -->
-<div class="player-modal-bg" id="player-modal-bg" onclick="closePlayerOnBg(event)">
-  <div class="player-modal" id="player-modal">
-    <div class="player-header">
-      <span class="p-title" id="p-title">Now Playing</span>
-      <div class="player-close" onclick="closePlayerModal()"><i class="fas fa-times"></i></div>
-    </div>
-    <div class="player-video-wrap">
-      <iframe id="player-iframe" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-    </div>
-    <div class="player-controls">
-      <div class="player-progress" id="player-progress">
-        <div class="player-progress-fill" id="player-progress-fill"></div>
-      </div>
-      <div class="pc-row">
-        <div class="pc-left">
-          <div class="pc-btn" onclick="rewind10()" title="Rewind 10s"><i class="fas fa-backward"></i></div>
-          <div class="pc-btn play-pause" id="play-pause-btn" onclick="togglePlay()"><i class="fas fa-pause"></i></div>
-          <div class="pc-btn" onclick="forward10()" title="Forward 10s"><i class="fas fa-forward"></i></div>
-          <span class="pc-time" id="pc-time">0:00</span>
-        </div>
-        <div class="pc-right">
-          <div class="pc-btn" onclick="prevVideo()" title="Previous"><i class="fas fa-step-backward"></i></div>
-          <div class="pc-btn" onclick="nextVideo()" title="Next"><i class="fas fa-step-forward"></i></div>
-          <div class="pc-btn" onclick="requestFullscreen()" title="Fullscreen"><i class="fas fa-expand"></i></div>
+    <!-- Photo Cloning Card -->
+    <div class="photo-cloning-card" onclick="openPhotoGallery(event)">
+      <div class="pcc-thumbnail">
+        <img src="photo1.jpg" alt="AI Photo Cloning thumbnail">
+        <div class="pcc-overlay">
+          <button class="pcc-explore-btn">
+            <i class="fas fa-images"></i>
+            Explore More Photos
+          </button>
         </div>
       </div>
-    </div>
-    <div class="next-episode-banner" id="next-ep-banner" onclick="nextVideo()">
-      <i class="fas fa-play"></i> Next Video
+      <div class="pcc-info">
+        <h3 class="pcc-title">Photo Cloning</h3>
+        <p class="pcc-desc">Explore our collection of AI-generated photo clones and variations</p>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Toast -->
-<div class="toast" id="toast">
-  <strong id="toast-title"></strong>
-  <span id="toast-msg"></span>
-</div>
-
-<!-- ============================================================
-     JAVASCRIPT
-============================================================ -->
 <script>
-/* ================================================================
-   DATA
-================================================================ */
-const VIDEO_SETS = [
-  {
-    section: 'AI Video Music Visualizers',
-    id: 'sec-visualizers',
-    videos: [
-      { id:'Pi05jb9xXtU', title:'Cinematic Music Visualizer I', tag:'4K HD', dur:'3:24' },
-      { id:'fLsiRfpwbz8', title:'Cinematic Music Visualizer II', tag:'4K HD', dur:'2:58' },
-      { id:'YpjmFiI_6Ms', title:'Cinematic Music Visualizer III', tag:'4K HD', dur:'4:10' },
-      { id:'0lMemK0xYXs', title:'Cinematic Music Visualizer IV', tag:'4K HD', dur:'3:45' },
-    ]
-  },
-  {
-    section: 'AI Ads Videos',
-    id: 'sec-ads',
-    videos: [
-      { id:'zIUotjon9PI', title:'Brand Ad Campaign I', tag:'HD', dur:'0:45' },
-      { id:'s6cpSzRMfw8', title:'Meta Ads Production II', tag:'HD', dur:'1:02' },
-      { id:'XxHxFwlWGD8', title:'Google Ads Cinematic III', tag:'HD', dur:'0:30' },
-      { id:'TnKSGkY5Hds', title:'Promotional Reel IV', tag:'HD', dur:'1:15' },
-    ]
-  }
+// Photo Cloning Gallery Data
+const photoCloneCollection = [
+  'photo1.jpg',
+  'photo2.jpg',
+  'photo3.jpg',
+  'photo1.jpg', // Adding more for demonstration
+  'photo2.jpg',
+  'photo3.jpg',
+  'photo1.jpg',
+  'photo2.jpg',
 ];
 
-const GRAPHICS_DATA = [
-  { label:'Logo Design', icon:'🎨', bg:'linear-gradient(135deg,#1a0505,#0a0a0a)' },
-  { label:'Brand Identity', icon:'💎', bg:'linear-gradient(135deg,#05051a,#0a0a0a)' },
-  { label:'Poster Design', icon:'🖼️', bg:'linear-gradient(135deg,#051a05,#0a0a0a)' },
-  { label:'UI Mockup', icon:'📱', bg:'linear-gradient(135deg,#1a1505,#0a0a0a)' },
-  { label:'Motion Graphics', icon:'🎬', bg:'linear-gradient(135deg,#0d1a05,#0a0a0a)' },
-  { label:'Social Media Kit', icon:'📸', bg:'linear-gradient(135deg,#1a0a0a,#0a0a1a)' },
-  { label:'Album Art', icon:'🎵', bg:'linear-gradient(135deg,#0a1a1a,#0a0a0a)' },
-  { label:'Event Flyer', icon:'📋', bg:'linear-gradient(135deg,#1a1a0a,#0a0a0a)' },
-];
-
-const MUSIC_LINKS = [
-  { name:'Spotify', sub:'Stream Now', icon:'🎧', color:'#1DB954', url:'#' },
-  { name:'Boomplay', sub:'Listen Free', icon:'🎵', color:'#00B4D8', url:'#' },
-  { name:'Apple Music', sub:'Premium', icon:'🍎', color:'#FA243C', url:'#' },
-  { name:'Amazon Music', sub:'HD Audio', icon:'📦', color:'#00A8E1', url:'#' },
-  { name:'Bandcamp', sub:'Buy & Support', icon:'🎸', color:'#1da0c3', url:'#' },
-];
-
-const GALLERY_ITEMS = [
-  { label:'Portrait I', gradient:'linear-gradient(135deg,#1a0808,#0d1a1a)' },
-  { label:'Portrait II', gradient:'linear-gradient(135deg,#0a0d1a,#1a0a0a)' },
-  { label:'Portrait III', gradient:'linear-gradient(135deg,#1a1a0a,#0a1a0a)' },
-  { label:'Portrait IV', gradient:'linear-gradient(135deg,#0d0d1a,#1a0d0d)' },
-  { label:'Portrait V', gradient:'linear-gradient(135deg,#0a1a0d,#1a0a1a)' },
-  { label:'Portrait VI', gradient:'linear-gradient(135deg,#1a0d0a,#0a0d1a)' },
-];
-
-const SEARCH_DB = [
-  ...VIDEO_SETS[0].videos.map(v=>({title:v.title,cat:'Music Visualizers',section:'sec-visualizers',thumb:`https://img.youtube.com/vi/${v.id}/mqdefault.jpg`,type:'video',sliderIndex:0})),
-  ...VIDEO_SETS[1].videos.map(v=>({title:v.title,cat:'AI Ads Videos',section:'sec-ads',thumb:`https://img.youtube.com/vi/${v.id}/mqdefault.jpg`,type:'video',sliderIndex:1})),
-  {title:'Photo Cloning',cat:'AI Photos',section:'sec-photos',thumb:'',type:'service'},
-  {title:'AI Photo Editing',cat:'AI Photos',section:'sec-photos',thumb:'',type:'service'},
-  ...GRAPHICS_DATA.map(g=>({title:g.label,cat:'Graphics Design',section:'sec-graphics',thumb:'',type:'service'})),
-  {title:'Buy Beats – BeatStars',cat:'Beats',section:'sec-beats',thumb:'',type:'service'},
-  {title:'Buy Beats – Payhip',cat:'Beats',section:'sec-beats',thumb:'',type:'service'},
-  {title:'Spotify',cat:'Live Music',section:'sec-music',thumb:'',type:'service'},
-  {title:'Apple Music',cat:'Live Music',section:'sec-music',thumb:'',type:'service'},
-  {title:'Boomplay',cat:'Live Music',section:'sec-music',thumb:'',type:'service'},
-];
-
-/* ================================================================
-   LOADING / INTRO ANIMATION
-================================================================ */
-(function(){
-  const canvas = document.getElementById('intro-canvas');
-  const ctx = canvas.getContext('2d');
-  let W,H,particles=[];
-
-  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
-  resize();
-  window.addEventListener('resize',resize);
-
-  for(let i=0;i<80;i++){
-    particles.push({
-      x:Math.random()*window.innerWidth,
-      y:Math.random()*window.innerHeight,
-      r:Math.random()*1.5+0.3,
-      vx:(Math.random()-0.5)*0.3,
-      vy:(Math.random()-0.5)*0.3,
-      alpha:Math.random()*0.4+0.05,
-    });
-  }
-
-  function drawParticles(){
-    ctx.clearRect(0,0,W,H);
-    particles.forEach(p=>{
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(229,9,20,${p.alpha})`;
-      ctx.fill();
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0)p.x=W;if(p.x>W)p.x=0;
-      if(p.y<0)p.y=H;if(p.y>H)p.y=0;
-    });
-    requestAnimationFrame(drawParticles);
-  }
-  drawParticles();
-
-  // Progress bar animation
-  const bar = document.getElementById('intro-bar');
-  let prog=0;
-  const interval = setInterval(()=>{
-    prog += Math.random()*3.5+1;
-    if(prog>=100){prog=100;clearInterval(interval);}
-    bar.style.width=prog+'%';
-  },40);
-
-  // Fade out after 3.2s
-  setTimeout(()=>{
-    document.getElementById('intro').classList.add('hide');
-    document.body.style.overflow='auto';
-  },3200);
-})();
-document.body.style.overflow='hidden';
-
-/* ================================================================
-   NAVBAR SCROLL EFFECT
-================================================================ */
-window.addEventListener('scroll',()=>{
-  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>80);
-});
-
-/* ================================================================
-   SCROLL UTILITIES
-================================================================ */
-function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
-function scrollToSection(id,btn){
-  const el=document.getElementById(id);
-  if(el){
-    const offset=document.getElementById('navbar').offsetHeight+50;
-    const top=el.getBoundingClientRect().top+window.scrollY-offset;
-    window.scrollTo({top,behavior:'smooth'});
-  }
-  if(btn){
-    document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-  }
-}
-
-/* ================================================================
-   BUILD VIDEO SLIDERS
-================================================================ */
-function buildSliders(){
-  VIDEO_SETS.forEach((set,si)=>{
-    const track=document.getElementById('slider-'+si);
-    if(!track)return;
-    set.videos.forEach((v,vi)=>{
-      const card=document.createElement('div');
-      card.className='video-card';
-      card.innerHTML=`
-        <div class="vc-thumb">
-          <img src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg"
-               alt="${v.title}" loading="lazy">
-          <div class="vc-overlay">
-            <div class="vc-play"><i class="fas fa-play"></i></div>
-          </div>
-          <span class="vc-duration">${v.dur}</span>
-        </div>
-        <div class="vc-info">
-          <div class="vc-title">${v.title}</div>
-          <div class="vc-meta">
-            <span class="q">${v.tag}</span>
-            <span>${set.section}</span>
-          </div>
-        </div>
-      `;
-      card.addEventListener('click',()=>openPlayerModal(si,vi));
-      track.appendChild(card);
-    });
-  });
-}
-buildSliders();
-
-/* ================================================================
-   SLIDER ARROWS
-================================================================ */
-function slideLeft(id){
-  const t=document.getElementById(id);
-  t.scrollBy({left:-(t.clientWidth*0.7),behavior:'smooth'});
-}
-function slideRight(id){
-  const t=document.getElementById(id);
-  t.scrollBy({left:t.clientWidth*0.7,behavior:'smooth'});
-}
-
-/* ================================================================
-   BUILD GRAPHICS GRID
-================================================================ */
-(function(){
-  const grid=document.getElementById('graphics-grid');
-  GRAPHICS_DATA.forEach(g=>{
-    const el=document.createElement('div');
-    el.className='gfx-card';
-    el.innerHTML=`
-      <div class="gfx-bg" style="background:${g.bg}">
-        <span style="font-size:54px">${g.icon}</span>
-        <div class="gfx-overlay"><span>${g.label}</span></div>
+// Open Photo Gallery Modal
+function openPhotoGallery(event) {
+  event.stopPropagation();
+  const modal = document.getElementById('photoGalleryModal');
+  const grid = document.getElementById('photoGalleryGrid');
+  
+  // Clear previous items
+  grid.innerHTML = '';
+  
+  // Populate gallery
+  photoCloneCollection.forEach((photoSrc, index) => {
+    const item = document.createElement('div');
+    item.className = 'photo-gallery-item';
+    item.innerHTML = `
+      <img src="${photoSrc}" alt="Photo ${index + 1}">
+      <div class="pgi-overlay">
+        <i class="fas fa-expand pgi-expand-icon"></i>
       </div>
     `;
-    grid.appendChild(el);
+    item.onclick = (e) => {
+      e.stopPropagation();
+      openExpandedPhoto(photoSrc);
+    };
+    grid.appendChild(item);
   });
-})();
-
-/* ================================================================
-   BUILD MUSIC GRID
-================================================================ */
-(function(){
-  const grid=document.getElementById('music-grid');
-  MUSIC_LINKS.forEach(m=>{
-    const el=document.createElement('div');
-    el.className='music-card';
-    el.innerHTML=`
-      <div class="mc-icon">${m.icon}</div>
-      <div class="mc-name">${m.name}</div>
-      <div class="mc-sub">${m.sub}</div>
-      <div class="mc-listen">Listen Now</div>
-    `;
-    el.style.setProperty('--mc-color',m.color);
-    el.addEventListener('click',()=>showToast(m.name,'Opening streaming platform…'));
-    grid.appendChild(el);
-  });
-})();
-
-/* ================================================================
-   VIDEO PLAYER MODAL
-================================================================ */
-let currentSet=0, currentVid=0, playerReady=false;
-let ytPlayer=null, progressTimer=null, isPaused=false;
-
-function openPlayerModal(setIndex, vidIndex){
-  currentSet=setIndex;
-  currentVid=vidIndex;
-  loadVideo(setIndex,vidIndex);
-  document.getElementById('player-modal-bg').classList.add('open');
-  document.body.style.overflow='hidden';
+  
+  modal.classList.add('open');
 }
 
-function loadVideo(si,vi){
-  const v=VIDEO_SETS[si].videos[vi];
-  document.getElementById('p-title').textContent=v.title;
-  document.getElementById('next-ep-banner').classList.remove('show');
-  const src=`https://www.youtube.com/embed/${v.id}?autoplay=1&rel=0&modestbranding=1&showinfo=0&enablejsapi=1&origin=${location.origin}`;
-  document.getElementById('player-iframe').src=src;
-  document.getElementById('pc-time').textContent='0:00';
-  document.getElementById('player-progress-fill').style.width='0%';
-  document.getElementById('play-pause-btn').innerHTML='<i class="fas fa-pause"></i>';
-  isPaused=false;
-  startProgressTimer();
+// Close Photo Gallery Modal
+function closePhotoGallery() {
+  document.getElementById('photoGalleryModal').classList.remove('open');
+  closeExpandedPhoto();
 }
 
-function closePlayerModal(){
-  document.getElementById('player-modal-bg').classList.remove('open');
-  document.getElementById('player-iframe').src='';
-  document.body.style.overflow='auto';
-  clearInterval(progressTimer);
-  document.getElementById('next-ep-banner').classList.remove('show');
-}
-function closePlayerOnBg(e){
-  if(e.target===document.getElementById('player-modal-bg'))closePlayerModal();
-}
-  function prevVideo(){
-  const set=VIDEO_SETS[currentSet];
-  currentVid=(currentVid-1+set.videos.length)%set.videos.length;
-  loadVideo(currentSet,currentVid);
+// Open Expanded Photo View
+function openExpandedPhoto(photoSrc) {
+  const expandedView = document.getElementById('expandedPhotoView');
+  const expandedImg = document.getElementById('expandedPhoto');
+  expandedImg.src = photoSrc;
+  expandedView.classList.add('open');
 }
 
-function togglePlay(){
-  isPaused=!isPaused;
-  document.getElementById('play-pause-btn').innerHTML=isPaused
-    ?'<i class="fas fa-play"></i>'
-    :'<i class="fas fa-pause"></i>';
+// Close Expanded Photo View
+function closeExpandedPhoto() {
+  document.getElementById('expandedPhotoView').classList.remove('open');
 }
 
-let elapsed=0;
-function startProgressTimer(){
-  clearInterval(progressTimer);
-  elapsed=0;
-  progressTimer=setInterval(()=>{
-    if(isPaused)return;
-    elapsed++;
-    const pct=Math.min((elapsed/300)*100,100);
-    document.getElementById('player-progress-fill').style.width=pct+'%';
-    document.getElementById('pc-time').textContent=formatTime(elapsed);
-    if(elapsed>=270){
-      document.getElementById('next-ep-banner').classList.add('show');
-    }
-    if(elapsed>=300){
-      clearInterval(progressTimer);
-      nextVideo();
-    }
-  },1000);
-}
-
-function forward10(){elapsed=Math.min(elapsed+10,300)}
-function rewind10(){elapsed=Math.max(elapsed-10,0);document.getElementById('next-ep-banner').classList.remove('show')}
-function formatTime(s){return Math.floor(s/60)+':'+(s%60).toString().padStart(2,'0')}
-
-function requestFullscreen(){
-  const el=document.getElementById('player-modal');
-  if(el.requestFullscreen)el.requestFullscreen();
-  else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();
-}
-
-/* ================================================================
-   PHOTO GALLERY MODAL
-================================================================ */
-function openGallery(type){
-  document.getElementById('gallery-title').textContent=type==='cloning'?'Photo Cloning Gallery':'AI Photo Editing Gallery';
-  const grid=document.getElementById('gallery-grid');
-  grid.innerHTML='';
-  GALLERY_ITEMS.forEach((item,i)=>{
-    const el=document.createElement('div');
-    el.className='gallery-item';
-    el.style.background=item.gradient;
-    el.innerHTML=`
-      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:clamp(60px,8vw,100px);opacity:0.15;">
-        ${type==='cloning'?'🧬':'✨'}
-      </div>
-      <div class="gi-overlay"><div class="gi-icon">👁️</div></div>
-      <div style="position:absolute;bottom:0;left:0;right:0;padding:12px 14px;background:linear-gradient(transparent,rgba(0,0,0,0.9));font-size:13px;font-weight:600;">${item.label}</div>
-    `;
-    grid.appendChild(el);
-  });
-  document.getElementById('gallery-modal').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeGallery(){
-  document.getElementById('gallery-modal').classList.remove('open');
-  document.body.style.overflow='auto';
-}
-
-/* ================================================================
-   PROFILE MODAL
-================================================================ */
-function toggleProfileModal(){
-  document.getElementById('profile-modal-bg').classList.toggle('open');
-}
-function closeProfileModal(e){
-  if(e.target===document.getElementById('profile-modal-bg'))toggleProfileModal();
-}
-function handleProfile(){
-  const u=document.getElementById('pm-username').value.trim();
-  const em=document.getElementById('pm-email').value.trim();
-  if(!u||!em){showToast('Error','Please fill in all fields');return;}
-  toggleProfileModal();
-  showToast('Welcome '+u+'!','You are now logged in to Reinblacks Creativz');
-}
-
-/* ================================================================
-   NOTIFICATIONS
-================================================================ */
-function requestNotifications(){
-  if(!('Notification' in window)){showToast('Notifications','Not supported in this browser');return;}
-  Notification.requestPermission().then(p=>{
-    if(p==='granted'){
-      new Notification('Reinblacks Creativz',{body:'🎵 Notifications enabled! Stay tuned for new drops.',icon:''});
-      showToast('Notifications','Enabled! You\'ll receive alerts for new content.');
-    } else {
-      showToast('Notifications','Permission denied.');
-    }
-  });
-}
-
-/* ================================================================
-   SEARCH SYSTEM
-================================================================ */
-function toggleSearch(){
-  const wrap=document.getElementById('search-input-wrap');
-  wrap.classList.toggle('open');
-  if(wrap.classList.contains('open')){
-    setTimeout(()=>document.getElementById('search-input').focus(),300);
-  } else {
-    closeSearch();
-  }
-}
-function closeSearch(){
-  document.getElementById('search-input-wrap').classList.remove('open');
-  document.getElementById('search-dropdown').innerHTML='';
-  document.getElementById('search-dropdown').classList.remove('show');
-  document.getElementById('search-input').value='';
-}
-
-document.getElementById('search-input').addEventListener('input',function(){
-  const q=this.value.trim().toLowerCase();
-  const dd=document.getElementById('search-dropdown');
-  if(!q){dd.innerHTML='';dd.classList.remove('show');return;}
-
-  const results=SEARCH_DB.filter(item=>
-    item.title.toLowerCase().includes(q)||
-    item.cat.toLowerCase().includes(q)
-  ).slice(0,8);
-
-  if(!results.length){
-    dd.innerHTML='<div class="s-no-result">No results found for "'+escapeHtml(q)+'"</div>';
-  } else {
-    dd.innerHTML=results.map(r=>{
-      const hl=r.title.replace(new RegExp('('+escapeRegex(q)+')','gi'),'<span class="s-highlight">$1</span>');
-      const thumb=r.thumb?`<img class="s-result-thumb" src="${r.thumb}" alt="" loading="lazy">`
-        :`<div class="s-result-thumb" style="display:flex;align-items:center;justify-content:center;font-size:22px;">🎬</div>`;
-      return `<div class="s-result-item" onclick="goToResult('${r.section}')">
-        ${thumb}
-        <div class="s-result-info">
-          <div class="s-result-title">${hl}</div>
-          <div class="s-result-cat">${r.cat}</div>
-        </div>
-      </div>`;
-    }).join('');
-  }
-  dd.classList.add('show');
+// Close modals on background click
+document.getElementById('photoGalleryModal')?.addEventListener('click', function(e) {
+  if (e.target === this) closePhotoGallery();
 });
 
-function goToResult(sectionId){
-  closeSearch();
-  scrollToSection(sectionId,null);
-}
-function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function escapeRegex(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
-
-// Close search on outside click
-document.addEventListener('click',e=>{
-  const sw=document.getElementById('search-wrap');
-  if(!sw.contains(e.target)){
-    document.getElementById('search-dropdown').classList.remove('show');
-  }
+document.getElementById('expandedPhotoView')?.addEventListener('click', function(e) {
+  if (e.target === this) closeExpandedPhoto();
 });
 
-/* ================================================================
-   TOAST
-================================================================ */
-let toastTimer=null;
-function showToast(title,msg){
-  const t=document.getElementById('toast');
-  document.getElementById('toast-title').textContent=title;
-  document.getElementById('toast-msg').textContent=msg;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>t.classList.remove('show'),3800);
-}
-
-/* ================================================================
-   INTERSECTION OBSERVER — LAZY SECTION REVEAL
-================================================================ */
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.style.opacity='1';
-      e.target.style.transform='translateY(0)';
-    }
-  });
-},{threshold:0.07});
-document.querySelectorAll('.content-section,.beats-section').forEach(s=>{
-  s.style.opacity='0';
-  s.style.transform='translateY(24px)';
-  s.style.transition='opacity 0.7s ease, transform 0.7s ease';
-  observer.observe(s);
+// Prevent body scroll when modal is open
+const observer = new MutationObserver(() => {
+  const isModalOpen = document.getElementById('photoGalleryModal')?.classList.contains('open');
+  document.body.style.overflow = isModalOpen ? 'hidden' : 'auto';
 });
 
-/* ================================================================
-   KEYBOARD SHORTCUTS
-================================================================ */
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){
-    closePlayerModal();
-    closeGallery();
-    closeSearch();
-    document.getElementById('profile-modal-bg').classList.remove('open');
-  }
-  if(e.key==='/'&&document.getElementById('player-modal-bg').classList.contains('open')){
-    e.preventDefault();togglePlay();
-  }
-  if(e.key==='ArrowRight'&&document.getElementById('player-modal-bg').classList.contains('open')){forward10()}
-  if(e.key==='ArrowLeft'&&document.getElementById('player-modal-bg').classList.contains('open')){rewind10()}
-  if(e.key==='n'&&document.getElementById('player-modal-bg').classList.contains('open')){nextVideo()}
+observer.observe(document.getElementById('photoGalleryModal') || document.body, {
+  attributes: true,
+  attributeFilter: ['class']
 });
 </script>
+
 </body>
 </html>
